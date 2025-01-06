@@ -1,0 +1,15 @@
+spacejunk.png
+size:2048,512
+repeat:none
+Astroide
+bounds:1004,408,32,32
+Astroide2
+bounds:1172,474,32,32
+Bullet
+bounds:1004,442,166,64
+GameOverText
+bounds:2,6,1000,500
+HealthUnit
+bounds:1004,396,10,10
+Star
+bounds:2,2,2,2
