@@ -3,18 +3,18 @@
 This is a small desktop appliction I developed over christmas break as a test for implementing Lib Gdx game engine. It features some custom sprite art and an auto generative space background.
 
 
-<img width="1002" alt="Screenshot 2025-01-09 at 18 25 19" src="https://github.com/user-attachments/assets/c1122a98-411c-4976-9871-59856c91eb45" alt = "8 Bit starship in black space during game screen"/>
+<img width="25%" alt="Screenshot 2025-01-09 at 18 25 19" src="https://github.com/user-attachments/assets/c1122a98-411c-4976-9871-59856c91eb45" alt = "8 Bit starship in black space during game screen"/>
 
 
 Notable challenges included getting the star sky to sit properly. In order to avoid running out of space on the original background I limited the height of the game world to 1000 pixels. Eventually I dropped the original background and opted for a generative star sky, considering the black background already present in the game engine. This made it so the running out of background map was no longer an issue. We still needed to reset the map size in order to avoid running out of integer memory. In order to reset every 1000 pixels we move everything on the game screen down 1000 pixels. This was we can keep theoretically playing indefinately. 
-<img width="1000" alt="Screenshot 2025-01-09 at 18 24 45" src="https://github.com/user-attachments/assets/1bc0c0cb-a523-497e-98f5-6d0c3730cc8d" alt = "8 Bit starship in black space during game screen"/>
+<img width="25%" alt="Screenshot 2025-01-09 at 18 24 45" src="https://github.com/user-attachments/assets/1bc0c0cb-a523-497e-98f5-6d0c3730cc8d" alt = "8 Bit starship in black space during game screen"/>
 
 
  I wanted to channl my love for 80's retro games and styled the game accordingly. For pizel sprites i used a software called Aseprite - a pixel art / sprite creation software program with images made in adobe illustrator as referance images.
 
 In the future I would love to keep developing this game, some improved versions may include music, a option to shoot astroids and an actual score keeping system.
 
-<img width="1000" alt="Screenshot 2025-01-09 at 18 25 09" src="https://github.com/user-attachments/assets/e604dc71-0442-4193-9ea1-fe619c84518b" alt= "example of game over screen" />
+<img width="25%" alt="Screenshot 2025-01-09 at 18 25 09" src="https://github.com/user-attachments/assets/e604dc71-0442-4193-9ea1-fe619c84518b" alt= "example of game over screen" />
 
 
 Gradle Info:
