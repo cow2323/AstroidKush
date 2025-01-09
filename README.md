@@ -19,6 +19,7 @@ Notable challenges included getting the star sky to sit properly. In order to av
 
 
 In the future I would love to keep developing this game, some improved versions may include music, a option to shoot astroids and an actual score keeping system. Additionally I would want an opening menu screen and potentially an option for online multiplayer.
+
 Gradle Info:
 
 ## Platforms
