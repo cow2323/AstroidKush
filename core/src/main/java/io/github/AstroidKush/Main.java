@@ -315,7 +315,8 @@ public class Main implements ApplicationListener {
 
 
 
-       for (int i = astroids.size - 1; i >= 0; i--) {
+
+       for (int i = astroids.size-1; i >= 0; i--) {
 
            Sprite astroid = astroids.get(i);
            astroidRectangle.set(astroid.getX(),astroid.getY(), astroid.getWidth() - buffer,astroid.getHeight() - buffer);
@@ -331,12 +332,14 @@ public class Main implements ApplicationListener {
                astroids.removeIndex(i);
 
 
+
                explosion.setUp(explosionX,explosionY, size);
 
                collision = true;
 
 
 
+               break;
 
 
            }
@@ -350,7 +353,16 @@ public class Main implements ApplicationListener {
            //deletes atsroids when out of bounds
            if (astroids.get(i).getY() < cam.position.y - cam.viewportHeight){
 
-               astroids.removeIndex(i);}
+               try {
+                   astroids.removeIndex(i);
+               }
+               catch (IndexOutOfBoundsException e) {
+
+
+                   astroids.removeIndex(astroids.size-1);
+               }
+
+           }
        }
 
 
