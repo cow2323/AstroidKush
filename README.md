@@ -7,6 +7,9 @@ This is a small desktop appliction I developed over christmas break as a test fo
 
 
 Notable challenges included getting the star sky to sit properly. In order to avoid running out of space on the original background I limited the height of the game world to 1000 pixels. Eventually I dropped the original background and opted for a generative star sky, considering the black background already present in the game engine. This made it so the running out of background map was no longer an issue. We still needed to reset the map size in order to avoid running out of integer memory. In order to reset every 1000 pixels we move everything on the game screen down 1000 pixels. This way we can theoretically keep playing indefinately (though current astroid randomisation makes this difficult) . 
+
+
+
 <img width="25%"  alt = "8 Bit starship in black space during game screen" src="https://github.com/user-attachments/assets/1bc0c0cb-a523-497e-98f5-6d0c3730cc8d"/>
 
 
