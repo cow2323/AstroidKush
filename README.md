@@ -10,13 +10,13 @@ Notable challenges included getting the star sky to sit properly. In order to av
 
 
 
-<img width="25%"  alt = "8 Bit starship in black space during game screen" src="https://github.com/user-attachments/assets/1bc0c0cb-a523-497e-98f5-6d0c3730cc8d"/>
+<img width="25%"  alt ="Game Over Screen" src="https://github.com/user-attachments/assets/1bc0c0cb-a523-497e-98f5-6d0c3730cc8d"/>
 
 
  I wanted to channl my love for 80's retro games and styled the game accordingly. For pizel sprites i used a software called Aseprite - a pixel art / sprite creation software program with images made in adobe illustrator as referance images.
 
 
-<img width="25%" alt="Game Over Screen" src="https://github.com/user-attachments/assets/e604dc71-0442-4193-9ea1-fe619c84518b"  />
+<img width="25%" alt= "8 Bit starship in black space during game screen"  src="https://github.com/user-attachments/assets/e604dc71-0442-4193-9ea1-fe619c84518b"  />
 
 
 
