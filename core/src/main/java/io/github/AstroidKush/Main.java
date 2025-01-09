@@ -35,11 +35,14 @@ public class Main implements ApplicationListener {
     private HealthBar healthMeter;
 
 
+    private Sprite gameOverText;
+
 
     Rectangle shipRectangle;
     Rectangle astroidRectangle;
 
     Texture shipSheet;
+
 
 
     SpriteAnimation<TextureRegion> ship;
@@ -50,6 +53,8 @@ public class Main implements ApplicationListener {
 
 
 
+    boolean gameOver = false;
+    float timeAtDeath;
 
     //Timer Variables
 
@@ -154,6 +159,19 @@ public class Main implements ApplicationListener {
 
 
 
+
+        //game over scene creation
+
+
+
+        gameOverText = new Sprite(atlas.findRegion("GameOverText"));
+
+        gameOverText.setSize(100,100);
+
+
+
+
+
     }
 
 
@@ -254,6 +272,11 @@ public class Main implements ApplicationListener {
 
 
 
+        //signals game over
+        if(healthMeter.isDead()) {
+            setGameOver();
+        }
+
         //Timer Variables
 
         float time = Gdx.graphics.getDeltaTime();
@@ -319,6 +342,11 @@ public class Main implements ApplicationListener {
            }
 
 
+
+
+
+
+
            //deletes atsroids when out of bounds
            if (astroids.get(i).getY() < cam.position.y - cam.viewportHeight){
 
@@ -335,6 +363,7 @@ public class Main implements ApplicationListener {
     }
     private void draw(){
 
+        float time;
 
         //Clears screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -359,20 +388,54 @@ public class Main implements ApplicationListener {
 
 
 
+
+
+
+
         if(collision) {
+
+
             explosion.draw(stateTime, spriteBatch);
+
             collision = false;
         }
+
+
+
+
 
 
         for(Sprite star: stars){star.draw(spriteBatch);}
         //map.draw(spriteBatch);
 
 
-        ship.draw(stateTime, spriteBatch);
+
         for(Sprite astroid: astroids){astroid.draw(spriteBatch);}
 
         healthMeter.draw();
+
+
+
+
+        if(!gameOver) {ship.draw(stateTime, spriteBatch);}
+
+
+        else  {
+
+
+            //game over drawing
+            gameOverText.setY(cam.position.y - 50);
+
+
+            gameOverText.draw(spriteBatch);
+
+            explodeShip();
+            explosion.draw(stateTime, spriteBatch);
+
+
+        }
+
+
 
         spriteBatch.end();
 
@@ -385,13 +448,26 @@ public class Main implements ApplicationListener {
 
         // speed dictates rate of movement
 
-            if (cam.position.y >= max - viewport.getScreenHeight() / 2) {
+            if (cam.position.y >= max - viewport.getScreenHeight() / 2f) {
                 relocateElements();
                 cam.translate(0,-max, 0);
-                ship.moveY(-max);
-            } else {
+
+
+
+                //we want to compensate for max int so long as game is running
+                if (!gameOver) ship.moveY(-max);
+
+
+            }
+            else {
                 cam.translate(0, +2, 0);
-                ship.moveY(speed);
+
+
+
+                //we want ship to keep moving so long as game is running
+                if (!gameOver) ship.moveY(speed);
+
+
             }
         }
 
@@ -400,6 +476,16 @@ public class Main implements ApplicationListener {
 
 
 
+
+        public void explodeShip(){
+
+
+            timeAtDeath = Gdx.graphics.getDeltaTime();
+            float explosionX = ship.xPos();
+            float explosionY = ship.yPos();
+
+            float size = ship.height();
+            explosion.setUp(explosionX,explosionY,size);}
 
 
 
@@ -429,6 +515,7 @@ public class Main implements ApplicationListener {
 
 
         float size = MathUtils.random(5f, 64f);
+        float rotation = MathUtils.random(360f);
 
 
         float camPos = cam.position.y + cam.viewportHeight;
@@ -441,6 +528,7 @@ public class Main implements ApplicationListener {
 
 
         astroid.setSize(size,size);
+        astroid.setRotation(rotation);
 
 
         astroid.setX(MathUtils.random(0f, world_width));
@@ -469,6 +557,16 @@ public class Main implements ApplicationListener {
         }
 
    }
+
+
+
+
+   public void setGameOver(){
+
+
+
+       timeAtDeath = Gdx.graphics.getDeltaTime();
+        gameOver = true;}
 
 
 
@@ -518,10 +616,12 @@ class HealthBar{
     int spacing = 2;
     int size = 5;
 
+    boolean dead;
     HealthBar(OrthographicCamera cam, SpriteBatch batch, TextureAtlas.AtlasRegion source){
 
 
 
+        dead = false;
         this.cam = cam;
         healthBar = new Array<>();
         this.batch = batch;
@@ -529,18 +629,32 @@ class HealthBar{
         lives = 10;
 
 
-        for (int i = 0; i < lives; i++){
+        for (int i = 0; i <= lives; i++){
             healthBar.add(new Sprite(source));
-        } }
+        }
+
+
+    }
 
 
 
     public void damage(){
 
+        if(lives <= 0) dead = true;
 
-        healthBar.removeIndex(lives - 1);
-        lives--;
+        try {
+            healthBar.removeIndex(lives - 1);
+            lives--;
+        }
+        catch (IndexOutOfBoundsException e) {
+            dead = true;
+        }
+
     }
+
+
+
+    public boolean isDead(){return dead;}
 
 
 
@@ -587,9 +701,11 @@ class Explosion{
 
             explosion = new SpriteAnimation<>(0.1f, explosiveFrames);
 
-            explosion.setPlayMode(Animation.PlayMode.NORMAL);
+            explosion.setPlayMode(Animation.PlayMode.LOOP);
 
-            explosion.setFrameDuration(1f);
+
+            explosion.setFrameDuration(0.1f);
+
 
 
         }
@@ -608,12 +724,6 @@ class Explosion{
             setSize(size);
 
             }
-
-
-
-
-
-
 
 
 
